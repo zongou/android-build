@@ -1,0 +1,54 @@
+# https://android.googlesource.com/platform/ndk/+/refs/heads/main/docs/Building.md
+name: Build NDK
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Prerequisites
+        run: |
+            sudo apt install qemu-user-static
+
+            curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
+            chmod +x /usr/local/bin/repo
+
+            mkdir -p aosp
+            cd  aosp
+
+            git config --global user.email "test@example.com"
+            git config --global user.name "test"
+            yes | repo init -u https://android.googlesource.com/platform/manifest -b master-ndk --partial-clone
+            repo sync
+
+      - name: Python environment setup
+        run: |
+          sudo apt install python3-poetry
+          cd aosp/ndk
+          poetry install
+
+      - name: Install cosmocc
+        uses: bjia56/setup-cosmocc@v0.0.3
+
+      # aosp dir will occupy 40G
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+
+      - name: Build
+        run: |
+          cd aosp/ndk
+
+          poetry run python checkbuild.py --module make --system="linux"
+          file ../out/linux/make/build/make
+
+      - uses: zongou/run-vscode-server@0.0.3
+        name: Run VS Code server to expore
+
+      - uses: zongou/run-vscode-server@0.0.3
+        name: Run VS Code server when failed
+        if: failure()
