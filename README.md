@@ -83,6 +83,8 @@ clang \
 	-resource-dir "${RESOURCE_DIR}" \
 	--sysroot="${SYSROOT}" \
 	--target="${TARGET}" \
+	-rtlib=compiler-rt \
+	-unwindlib=platform \
 	-xc - \
 	-o "hello-c" \
 	<<-EOF
