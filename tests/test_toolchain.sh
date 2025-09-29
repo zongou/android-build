@@ -34,6 +34,8 @@ ${CLANG} \
 	-resource-dir "${RESOURCE_DIR}" \
 	--sysroot="${SYSROOT}" \
 	--target="${TARGET}" \
+	-rtlib=compiler-rt \
+	-unwindlib=platform \
 	-xc - \
 	"$@" \
 	-o "${ROOT_DIR}/tests/output/hello-c" \
@@ -52,6 +54,8 @@ ${CLANG} \
 	-resource-dir "${RESOURCE_DIR}" \
 	--sysroot="${SYSROOT}" \
 	--target="${TARGET}" \
+	-rtlib=compiler-rt \
+	-unwindlib=platform \
 	-xc++ -lc++ - \
 	"$@" \
 	-o "${ROOT_DIR}/tests/output/hello-cpp" \

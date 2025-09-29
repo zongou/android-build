@@ -3,6 +3,7 @@ set -eu
 
 ROOT_DIR=$(dirname "$(realpath "$0")")
 PROGRAM="$(basename "$0")"
+TMPDIR=${TMPDIR-/tmp}
 
 # shellcheck disable=SC2059
 msg() { printf "%s\n" "$*" >&2; }
