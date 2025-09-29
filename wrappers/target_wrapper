@@ -27,6 +27,8 @@ set -- \
 	-resource-dir="${RESOURCE}" \
 	--sysroot="${SYSROOT}" \
 	--target="${TARGET}" \
+	-rtlib=compiler-rt \
+	-unwindlib=platform \
 	"$@"
 
 ## Static compilation for Android api level < 29
