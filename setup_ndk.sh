@@ -39,8 +39,8 @@ setup() {
 		ln -snf "$f" "${TOOLCHAIN}/bin/$(basename $f)"
 	done
 
-	# ln -snf target_wrapper ${TOOLCHAIN}/bin/clang
-	# ln -snf target_wrapper ${TOOLCHAIN}/bin/clang++
+	ln -snf target_wrapper ${TOOLCHAIN}/bin/clang
+	ln -snf target_wrapper ${TOOLCHAIN}/bin/clang++
 
 	## Remove unused resource
 	rm -rf "${TOOLCHAIN}/python3"

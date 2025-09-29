@@ -22,4 +22,5 @@ cat <<-EOF >local.properties
 ndk.dir=${ANDROID_NDK_ROOT}
 EOF
 
+unset ANDROID_SDK_ROOT
 ${GRADLE} assembleRelease "$@"
